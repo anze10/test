@@ -7,6 +7,7 @@ import Predstavitev from "./_components/Predstavitev";
 import Data from "./_components/Data";
 import Graf_dva from "./_components/Graf_dva"
 import Scidrom from "~/app/_components/Vidrom"
+import SimpleForm from '~/app/_components/obrazec'; 
 
 
 export default async function Home() {

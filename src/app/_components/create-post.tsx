@@ -41,3 +41,4 @@ export function CreatePost() {
     </form>
   );
 }
+/* tole ne vem za kaj je koda */

@@ -7,7 +7,7 @@
 }
 .test::before{
     content: "";
-    background-image: url('/02.jpg');
+    background-image: url('/zvezd.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
