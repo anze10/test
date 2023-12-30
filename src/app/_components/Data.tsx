@@ -1,77 +1,78 @@
 "use client"
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
-import type { Dayjs } from 'dayjs'; 
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import type { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Button from '@mui/material/Button';
-import { Box, createTheme, ThemeProvider } from '@mui/material';
-import 'src/app/_components/Data.css'; 
-import utrinki from 'public/sliak_zvezd.jpg'; 
+import { Box } from '@mui/material';
+import './Data.css';
 import Graf_ena from 'src/app/_components/Graf_ena';
 import Graf_dva from 'src/app/_components/Graf_dva';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#ffd700', 
-    },
-    secondary: {
-      main: '#ced8e4', 
-    },
-    background: {
-      default: '#000814', 
-    },
-  },
-});
 
-function Data() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
-  const [vrednost, setVrednost] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
-  
+
+export default function Podatki() {
+  const [grafEna, setGrafEna] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
+  const [grafDva, setGrafDva] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
+  const [displayedGraf, setDisplayedGraf] = React.useState<string | undefined>("graf_ena");
+
+  useEffect(() => {
+    console.log(displayedGraf)
+  }, [displayedGraf])
+
   return (
-    <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <div className='test'>
-          <div className='ola'>
-            <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '10px',
-                backgroundColor: '#000814',
-                color: theme.palette.text.primary, 
-                boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
-                marginBottom: '20px',
-                borderRadius: '4px',
-              }}>
-              <DatePicker
-                label="od"
-                value={value}
-                onChange={(newValue) => setValue(newValue)}
-                sx={{ backgroundColor: '#2a3e52', color: '#fff', border: 'none', padding: '10px', borderRadius: '4px' }} />
-              
-              <DatePicker
-                label="do"
-                value={vrednost}
-                onChange={(newValue) => setVrednost(newValue)}
-                sx={{ backgroundColor: '#2a3e52', color: '#fff', border: 'none', padding: '10px', borderRadius: '4px' }} />
-              
-              <Button variant="contained" color='primary'  style={{ color: '#fff' }}>Počisti</Button>
-            </Box>
-            <div>
-              {vrednost === null && value === null ? (
-                <Graf_ena />
-              ) : (
-                <Graf_dva />
-              )}
-            </div>
-          </div>
+
+    <div id="podatki" className='test'>
+      <div className='ola'>
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '10px',
+          backgroundColor: '#000814',
+          color: "theme.palette.text.primary",
+          boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
+          marginBottom: '20px',
+          borderRadius: '4px',
+        }}>
+          <DatePicker
+            label="od"
+            value={grafEna}
+            onChange={(newValue) => {
+              setDisplayedGraf("graf_dva")
+              setGrafEna(newValue)
+            }}
+            sx={{ backgroundColor: '#2a3e52', color: '#fff', border: 'none', padding: '10px', borderRadius: '4px' }} />
+
+          <DatePicker
+            label="do"
+            value={grafDva}
+            onChange={(newValue) => {
+              setDisplayedGraf("graf_dva")
+              setGrafDva(newValue)
+            }}
+            sx={{ backgroundColor: '#2a3e52', color: '#fff', border: 'none', padding: '10px', borderRadius: '4px' }} />
+
+          <Button
+            variant="contained"
+            color='primary'
+            style={{ color: '#fff' }}
+            onClick={() => { setDisplayedGraf("graf_ena") }}
+          >
+            Počisti
+          </Button>
+        </Box>
+        <div>
+          {displayedGraf == "graf_ena" || displayedGraf == "" ? (
+            <Graf_ena />
+          ) : null}
+          {displayedGraf == "graf_dva" ? (
+            <Graf_dva />
+          ) : null}
         </div>
-      </LocalizationProvider>
-    </ThemeProvider>
+      </div>
+    </div>
+
   );
 }
-
-export default Data;
