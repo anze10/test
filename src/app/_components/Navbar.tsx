@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import logo from 'public/scidrom.jpg'
 
-import  "./Navbar.css"
+import "./Navbar.css"
 
 const Navbar = () => {
 
@@ -16,9 +16,9 @@ const Navbar = () => {
     return (
         <div className="header">
             <nav className='navbar'>
-                 <a href='/' className='logo'>
+                <a href='/' className='logo'>
                     <Image src={logo} alt='Jebemu boga' />
-                </a> 
+                </a>
                 <div className='hamburger' onClick={handleClick}>
                     {click ? (<FaTimes size={30} style={{ color: '#ffffff' }} />)
                         : (<FaBars size={30} style={{ color: '#ffffff' }} />)}
@@ -29,10 +29,10 @@ const Navbar = () => {
                         <a href='/' onClick={closeMenu}>Domov</a>
                     </li>
                     <li className='nav-item'>
-                        <a href='#Data' onClick={closeMenu}>Podatki</a>
+                        <a href='#podatki' onClick={closeMenu}>Podatki</a>
                     </li>
                     <li className='nav-item'>
-                        <a href='#testimonials' onClick={closeMenu}>O nas</a>
+                        <a href='#testemonials' onClick={closeMenu}>O nas</a>
                     </li>
 
                 </ul>
