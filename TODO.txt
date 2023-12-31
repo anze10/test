@@ -2,3 +2,4 @@ overflow scroll
 nbar
 grafe 
 footer
+kontakt gumb mora delat
