@@ -8,7 +8,7 @@ export default function Overflow({ children, inter }: { children: ReactNode, int
     const navbarOpen = false
     return (
         <body className="font-sans" style={{
-            "overflow": navbarOpen ? "hidden" : "scroll"
+            "overflowY": navbarOpen ? "hidden" : "scroll"
         }}>
             {children}
         </body>

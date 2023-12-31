@@ -1,0 +1,4 @@
+overflow scroll
+nbar
+grafe 
+footer
