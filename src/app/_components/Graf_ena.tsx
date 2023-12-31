@@ -1,6 +1,6 @@
 "use client"
 import { BarChart, Card, Title } from "@tremor/react";
-      import React from "react";
+import React from "react";
 
 const chartdata3 = [
   {
@@ -66,7 +66,7 @@ const chartdata3 = [
 ];
 
 
-  
+
 export default function Example() {
   const [value, setValue] = React.useState(null);
   return (
@@ -78,7 +78,7 @@ export default function Example() {
           data={chartdata3}
           index="date"
           categories={["2022", "2023"]}
-          colors={["neutral", "indigo"]}
+          colors={["green", "orange"]}
           yAxisWidth={30}
           onValueChange={(v) => setValue(v)}
         />

@@ -21,8 +21,8 @@ const data = [
 ];
 
 const valueFormatter = (number: number): string => {
-    return `$${Intl.NumberFormat("us").format(number).toString()}`;
-  };
+  return `$${Intl.NumberFormat("us").format(number).toString()}`;
+};
 
 export default function Example() {
   return (
@@ -34,7 +34,7 @@ export default function Example() {
         data={data}
         categories={["Sales", "Profit"]}
         index="Month"
-        colors={["indigo", "fuchsia"]}
+        colors={["green", "orange"]}
         yAxisWidth={60}
         valueFormatter={valueFormatter}
       />
