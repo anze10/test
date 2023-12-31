@@ -26,7 +26,9 @@ const valueFormatter = (number: number): string => {
 
 export default function Example() {
   return (
-    <Card>
+    <Card style={{
+      background: "#444444"
+    }}>
       <Title>Performance</Title>
       <Text>Comparison between Sales and Profit</Text>
       <AreaChart

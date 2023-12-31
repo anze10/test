@@ -70,7 +70,10 @@ const chartdata3 = [
 export default function Example() {
   return (
     <>
-      <Card>
+      <Card style={{
+        background: "#444444"
+      }}>
+
         <Title>Closed Pull Requests</Title>
         <BarChart
           className="mt-6"
@@ -79,6 +82,7 @@ export default function Example() {
           categories={["2022", "2023"]}
           colors={["green", "orange"]}
           yAxisWidth={30}
+
         />
       </Card>
     </>

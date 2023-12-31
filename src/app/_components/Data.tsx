@@ -31,7 +31,7 @@ export default function Podatki() {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '10px',
-          backgroundColor: 'black',
+          backgroundColor: "#444444",
           boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
           marginBottom: '20px',
           borderRadius: '4px',
@@ -42,7 +42,7 @@ export default function Podatki() {
               setDisplayedGraf("graf_dva")
               setGrafEna(newValue)
             }}
-            sx={{ backgroundColor: '#2a3e52', color: '#fff', border: 'none', borderRadius: '4px' }} />
+            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
 
           <DatePicker
             value={grafDva}
@@ -50,7 +50,7 @@ export default function Podatki() {
               setDisplayedGraf("graf_dva")
               setGrafDva(newValue)
             }}
-            sx={{ backgroundColor: '#2a3e52', color: '#fff', border: 'none', borderRadius: '4px' }} />
+            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
 
           <Button
             variant="contained"
