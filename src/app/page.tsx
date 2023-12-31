@@ -5,10 +5,10 @@ import Scidrom from "~/app/_components/scidrom"
 import { Box } from '@mui/material';
 
 
-export default function Home({ navbarOpen, setNavbarOpen }: NavbarType) {
+export default function Home() {
   return (
     <Box>
-      <Navbar navbarOpen={navbarOpen} setNavbarOpen={setNavbarOpen} />
+      <Navbar />
       <Predstavitev />
       <Data />
       <Scidrom />

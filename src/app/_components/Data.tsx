@@ -13,8 +13,8 @@ import Graf_dva from 'src/app/_components/Graf_dva';
 
 
 export default function Podatki() {
-  const [grafEna, setGrafEna] = React.useState<Dayjs>(dayjs('2022-04-17'));
-  const [grafDva, setGrafDva] = React.useState<Dayjs>(dayjs('2022-04-17'));
+  const [grafEna, setGrafEna] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
+  const [grafDva, setGrafDva] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   const [displayedGraf, setDisplayedGraf] = React.useState<string | undefined>("graf_ena");
 
   useEffect(() => {

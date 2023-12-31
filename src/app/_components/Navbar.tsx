@@ -13,7 +13,8 @@ export type NavbarType = {
     setNavbarOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const Navbar = ({ navbarOpen, setNavbarOpen }: NavbarType) => {
+const Navbar = () => {
+    const [navbarOpen, setNavbarOpen] = useState(false)
     const closeMenu = () => setNavbarOpen(false)
 
     return (

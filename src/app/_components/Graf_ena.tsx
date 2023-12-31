@@ -68,7 +68,6 @@ const chartdata3 = [
 
 
 export default function Example() {
-  const [value, setValue] = React.useState(null);
   return (
     <>
       <Card>
@@ -80,10 +79,8 @@ export default function Example() {
           categories={["2022", "2023"]}
           colors={["green", "orange"]}
           yAxisWidth={30}
-          onValueChange={(v) => setValue(v)}
         />
       </Card>
-      <pre>{JSON.stringify(value)}</pre>
     </>
   );
 }
