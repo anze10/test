@@ -13,7 +13,7 @@ const scidrom = () => {
         <p>Sedaj pa namenimo še nekaj besed SCiDROMU. Scidrom je znanstveni laboratorij Šolskega centra Novo mesto, kjer dijaki pod mentorstvom profesorjev sodelujejo pri različnih projektih iz najrazličnejših strok. Če želite izvedeti več o nas, lahko s klikom na spodnji gumb &apos;Izvedi več&apos; pridete do naše spletne strani, kjer boste našli več informacij o nas.</p>
         <br />
         <div >
-          <Button variant="contained" /* color='primary' style={{ color: '#fff', margin: "10px" }} */>Kontakt</Button>
+          <Button variant="contained" onClick={() => window.location.href = '/kontakt'}>Kontakt</Button>
           <Button variant="contained" color='primary' style={{ color: '#fff', margin: "10px" }} onClick={() => window.open('https://scidrom.sc-nm.si/', '_blank')}>Izvedi več</Button>
         </div>
       </div>

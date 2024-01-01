@@ -31,7 +31,7 @@ export default function Podatki() {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '10px',
-          backgroundColor: "#444444",
+          backgroundColor: "#878787",
           boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
           marginBottom: '20px',
           borderRadius: '4px',

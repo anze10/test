@@ -14,4 +14,5 @@ model meteoriti {
     id_meteorit Int      @id @default(autoincrement())
     trajanje    Int
     cas         DateTime @default(now())
+    dan         DateTime @default(now())
 }
