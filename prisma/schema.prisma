@@ -10,9 +10,11 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+// to poglej https://dev.mysql.com/doc/refman/8.0/en/date-and-time-types.html
+// poguglov sem mysql time datatype
 model meteoriti {
     id_meteorit Int      @id @default(autoincrement())
-    trajanje    Int
-    cas         DateTime @default(now())
-    dan         DateTime @default(now())
+    trajanje    Decimal  @db.Decimal(10, 2) // ta precision poprav ce hoces met datetime
+    dan         DateTime @default(now()) @db.Date
+    cas         DateTime @default(now()) @db.Time()
 }
