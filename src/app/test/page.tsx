@@ -1,7 +1,7 @@
 import { db } from "~/server/db";
 
 async function get_data() {
-    const meteoriti = await db.meteoriti.findMany({})
+    const meteoriti = await db.meteorit.findMany({})
     return meteoriti;
 }
 
