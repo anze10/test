@@ -10,3 +10,4 @@ trajanje	decimal
 cas	time
 dan	date
 neki testeram
+n
