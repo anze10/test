@@ -9,3 +9,4 @@ id_meteorit	int
 trajanje	decimal
 cas	time
 dan	date
+neki testeram
