@@ -13,8 +13,8 @@ datasource db {
 model meteoriti {
   id_meteorit Int      @id @default(autoincrement())
   trajanje    Decimal  @db.Decimal(10, 2) // ta precision poprav ce hoces met datetime
-  dan         DateTime @default(now()) @db.Date
-  cas         DateTime @default(now()) @db.Time()
+  dan         DateTime @db.Date()
+  cas         DateTime @db.Time()
 }
 
-jebemti prizmo da ji jebem matr
+//jebemti prizmo da ji jebem matr
