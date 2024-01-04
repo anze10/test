@@ -16,3 +16,5 @@ model meteoriti {
   dan         DateTime @default(now()) @db.Date
   cas         DateTime @default(now()) @db.Time()
 }
+
+jebemti prizmo da ji jebem matr
