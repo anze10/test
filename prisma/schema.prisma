@@ -10,9 +10,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model meteorit {
+model meteoriti {
   id_meteorit Int      @id @default(autoincrement())
-  trajanje    Decimal  @db.Decimal // ta precision poprav ce hoces met datetime
+  trajanje    Decimal  @db.Decimal(10, 2) // ta precision poprav ce hoces met datetime
   dan         DateTime @default(now()) @db.Date
   cas         DateTime @default(now()) @db.Time()
 }
