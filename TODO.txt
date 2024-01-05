@@ -3,9 +3,3 @@ nbar
 grafe 
 footer
 ne dela zadna vrstica pr formu kodi da ko submites prids nazaj na prvo strn pa dobiš pop out sporočilo da si uspešno poslou stvari
-prism ma novo shemo k ne dela 
-TO POPRAU  kr ne vem kaj je narobe 
-id_meteorit	int
-trajanje	decimal
-cas	time
-dan	date

@@ -3,6 +3,8 @@ import Predstavitev from "./_components/Predstavitev";
 import Data from "./_components/Data";
 import Scidrom from "~/app/_components/scidrom"
 import { Box } from '@mui/material';
+import Footer from '~/app/_components/footer';
+
 
 
 export default function Home() {
@@ -12,6 +14,7 @@ export default function Home() {
       <Predstavitev />
       <Data />
       <Scidrom />
+      <Footer />
     </Box>
   );
 }
