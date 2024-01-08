@@ -9,7 +9,7 @@ const Footer = async () => {
                 @Scidrom 2024 vse pravice pridržane
             </Typography>
             <Typography sx={{ color: "white" }}>
-                Spletno stran je izdelal jst s pomočjo dveh prijateljev, katerima se iskreno zahvaljujem: luka in Tim.
+                Spletno stran je izdelal Anže s pomočjo dveh prijateljev, katerima se iskreno zahvaljujem: luka in Tim.
             </Typography>
             <Link href="https://github.com/anze10" color="inherit" sx={{ color: "white" }}>
                 <GitHubIcon sx={{ marginRight: 8 }} />
