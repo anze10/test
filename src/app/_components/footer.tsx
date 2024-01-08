@@ -1,19 +1,30 @@
 import React from 'react';
 import { Typography, Link, Box } from '@mui/material';
-import { FaGithub } from 'react-icons/fa'; // Ensure this import is correct
-
-const Footer = () => {
+import GitHubIcon from '@mui/icons-material/GitHub';
+const Footer = async () => {
     return (
         <Box component="footer" sx={{ textAlign: 'center', padding: '20px 0' }}>
-            <Typography variant="body1" gutterBottom>
-                © 2024 Scidrom. Vse pravice pridržane.
-            </Typography>
-            <p>
+            <Typography>
                 Spletno stran je izdelal jst s pomočjo dveh prijateljev, katerima se iskreno zahvaljujem: luka in Tim."
-            </p>
+            </Typography>
+            <Link href="https://github.com/anze10" color="inherit">
+                <GitHubIcon sx={{ marginRight: 8 }} />
+                Profile 1
+            </Link>
+            {' | '}
+            <Link href="https://github.com/lukaprsina" color="inherit">
+                <GitHubIcon sx={{ marginRight: 8 }} />
+                Profile 1
+            </Link>
+            {' | '}
+            <Link href="timnahtigal" color="inherit">
+                <GitHubIcon sx={{ marginRight: 8 }} />
+                Profile 1
+            </Link>
 
 
         </Box>
+
     );
 };
 
