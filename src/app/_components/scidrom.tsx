@@ -3,8 +3,11 @@
 import 'src/app/_components/scidrom.css'
 import Button from '@mui/material/Button';
 import React from 'react'
+import Footer from './footer';
+import { Box } from '@mui/material';
 
 const scidrom = () => {
+  const [displayedFooter, setDisplayedFooter] = React.useState<boolean | undefined>(false);
   return (
     <div id="testemonials" className='scidrom'>
       <div className='na'>
@@ -15,8 +18,14 @@ const scidrom = () => {
         <div >
           <Button variant="contained" onClick={() => window.location.href = '/kontakt'}>Kontakt</Button>
           <Button variant="contained" color='primary' style={{ color: '#fff', margin: "10px" }} onClick={() => window.open('https://scidrom.sc-nm.si/', '_blank')}>Izvedi več</Button>
-        </div>
+        </div >
+        <br />
+        <br />
+        {/* <Box sx={{ position: "relative", backgroundColor: "orangered", width: "100%", padding: "10%", paddingBottom: "40%" }}>
+          <br />
+        </Box> */}
       </div>
+      <Footer />
     </div>
 
   )

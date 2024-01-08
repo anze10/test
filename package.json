@@ -14,6 +14,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@mantine/core": "^7.4.0",
     "@mui/icons-material": "^5.15.3",
     "@mui/lab": "^5.0.0-alpha.158",
     "@mui/material": "^5.15.3",
@@ -22,6 +23,7 @@
     "@prisma/client": "^5.7.1",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@tremor/react": "^3.12.1",
+    "@uidotdev/usehooks": "^2.4.1",
     "dayjs": "^1.11.10",
     "next": "^14.0.4",
     "react": "18.2.0",
