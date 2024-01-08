@@ -2,7 +2,7 @@
 import React from 'react';
 import { Typography, Link, Box } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-const Footer = async () => {
+const Footer = () => {
     return (
         <Box component="footer" sx={{ textAlign: 'center', padding: '20px 0', backgroundColor: "black" }}>
             <Typography sx={{ color: "white" }}>
