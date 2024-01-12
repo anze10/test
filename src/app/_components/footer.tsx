@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useMemo } from 'react';
+import { InView, useInView } from 'react-intersection-observer';
 import { Typography, Link, Box } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useWindowScroll, useWindowSize } from "@uidotdev/usehooks";
@@ -9,12 +10,13 @@ const Footer = () => {
     const [{ x, y }, scrollTo] = useWindowScroll();
     const footerShown = useMemo(() => {
         if (typeof size.height !== "number" || typeof y !== "number") return
-        return size.height - y < 1
+        return size.height - y < -945
     }, [size, y])
     useEffect(() => {
-        console.log({ footerShown, sizeheight: size.height, y })
+        //console.log({ footerShown, sizeheight: size.height, y })
     }, [footerShown, size, y])
     return (
+
         <Box hidden={!footerShown} component="footer" sx={{ textAlign: 'center', padding: '20px 0', backgroundColor: "black" }}>
             <Typography sx={{ color: "white" }}>
                 @Scidrom 2024 vse pravice pridržane
@@ -39,6 +41,7 @@ const Footer = () => {
 
 
         </Box>
+
 
     );
 };

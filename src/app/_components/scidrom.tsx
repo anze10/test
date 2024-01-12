@@ -5,8 +5,15 @@ import Button from '@mui/material/Button';
 import React from 'react'
 import Footer from './footer';
 import { Box } from '@mui/material';
+import { InView, useInView } from 'react-intersection-observer';
 
 const scidrom = () => {
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+  console.log("Lep dan")
+  console.log({ inView })
   const [displayedFooter, setDisplayedFooter] = React.useState<boolean | undefined>(false);
   return (
     <div id="testemonials" className='scidrom'>
@@ -25,7 +32,9 @@ const scidrom = () => {
           <br />
         </Box> */}
       </div>
-      <Footer />
+      <InView onChange={(inView, entry) => console.log('Inview:', inView)}>
+        <Footer />
+      </InView>
     </div>
 
   )
