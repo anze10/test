@@ -4,10 +4,9 @@ import 'src/app/_components/scidrom.css'
 import Button from '@mui/material/Button';
 import React from 'react'
 import Footer from './footer';
-import { Box } from '@mui/material';
 import { InView, useInView } from 'react-intersection-observer';
 
-const scidrom = () => {
+const Scidrom = () => {
   const { ref, inView, entry } = useInView({
     /* Optional options */
     threshold: 0,
@@ -32,7 +31,7 @@ const scidrom = () => {
           <br />
         </Box> */}
       </div>
-      <InView onChange={(inView, entry) => setDisplayedFooter(inView)}>
+      <InView onChange={(inView) => setDisplayedFooter(inView)}>
         {
           displayedFooter ? <Footer /> : null
         }
@@ -44,4 +43,4 @@ const scidrom = () => {
 }
 /* tipka kontakterej me je ideja od dans in ce bo prevec  zajebavanja s tem d ato dela bom samo odstranu to sranje */
 
-export default scidrom
+export default Scidrom

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -9,20 +9,19 @@ import { Box } from '@mui/material';
 import './Data.css';
 import Graf_ena from 'src/app/_components/Graf_ena';
 import Graf_dva from 'src/app/_components/Graf_dva';
+import type { meteoriti } from '@prisma/client';
 
+type PodatkiType = {
+  meteorites: (start_date: Dayjs, end_date: Dayjs) => Promise<meteoriti[]>;
+  podatki: meteoriti[];
+};
 
-
-export default function Podatki() {
-  const [grafEna, setGrafEna] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
-  const [grafDva, setGrafDva] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
+export default function Podatki({ meteorites: getMeteoriteDataBetweenTwoDates }: PodatkiType) {
+  const [grafEna, setGrafEna] = React.useState<Dayjs>(dayjs(Date.now()));
+  const [grafDva, setGrafDva] = React.useState<Dayjs>(dayjs(Date.now()));
   const [displayedGraf, setDisplayedGraf] = React.useState<string | undefined>("graf_ena");
 
-  useEffect(() => {
-    console.log(displayedGraf)
-  }, [displayedGraf])
-
   return (
-
     <div id="podatki" className='test'>
       <div className='ola'>
         <Box sx={{
@@ -38,17 +37,25 @@ export default function Podatki() {
         }}>
           <DatePicker
             value={grafEna}
-            onChange={(newValue) => {
+            onChange={async (newValue) => {
+              if (newValue == null) return
               setDisplayedGraf("graf_dva")
               setGrafEna(newValue)
+              // revalidateTag("invalidate")
+              const result = await getMeteoriteDataBetweenTwoDates(newValue, grafDva)
+              console.log({ result }, "from graf ena")
             }}
             sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
 
           <DatePicker
             value={grafDva}
-            onChange={(newValue) => {
+            onChange={async (newValue) => {
+              if (newValue == null) return
               setDisplayedGraf("graf_dva")
               setGrafDva(newValue)
+              // revalidateTag("invalidate")
+              const result = await getMeteoriteDataBetweenTwoDates(grafEna, newValue)
+              console.log({ result }, "from graf dva")
             }}
             sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
 
@@ -61,7 +68,7 @@ export default function Podatki() {
         </Box>
         <div>
           {displayedGraf == "graf_ena" || displayedGraf == "" ? (
-            <Graf_ena />
+            <Graf_ena podatki={podatki} />
           ) : null}
           {displayedGraf == "graf_dva" ? (
             <Graf_dva />
@@ -69,6 +76,5 @@ export default function Podatki() {
         </div>
       </div>
     </div>
-
   );
 }
