@@ -2,7 +2,6 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import Providers from "./providers";
-import Overflow from "./overflow";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,11 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Overflow inter={inter}>
+      <body className={`font-sans ${inter.variable}`}>
         <Providers>
           {children}
         </Providers>
-      </Overflow>
+      </body>
     </html>
   );
 }

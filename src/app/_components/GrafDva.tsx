@@ -1,5 +1,5 @@
 "use client"
-import { Card, AreaChart, Title, Text } from "@tremor/react";
+import { AreaChart, Card, Text, Title } from "@tremor/react";
 
 const data = [
   {
@@ -24,7 +24,7 @@ const valueFormatter = (number: number): string => {
   return `$${Intl.NumberFormat("us").format(number).toString()}`;
 };
 
-export default function Example() {
+export default function GrafDva() {
   return (
     <Card style={{
       background: "#444444"

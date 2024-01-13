@@ -1,7 +1,6 @@
 "use client"
-import { meteoriti } from "@prisma/client";
+import type { meteoriti } from "@prisma/client";
 import { BarChart, Card, Title } from "@tremor/react";
-import React from "react";
 
 const chartdata3 = [
   {
@@ -68,9 +67,10 @@ const chartdata3 = [
 
 
 
-export default function Example({ podatki }: { podatki: meteoriti[] }) {
+export default function GrafEna({ meteoriti: podatki }: { meteoriti: meteoriti[] }) {
   const mapped_podatki = podatki.map((podatek) => ({
-    date: podatek.dan
+    date: podatek.dan,
+    // ...
   }))
 
   return (
@@ -82,7 +82,7 @@ export default function Example({ podatki }: { podatki: meteoriti[] }) {
         <Title>Closed Pull Requests</Title>
         <BarChart
           className="mt-6"
-          data={mapped_podatki}
+          data={chartdata3}
           categories={["2022", "2023"]}
           index="date"
           colors={["green", "orange"]}

@@ -3,17 +3,9 @@
 import 'src/app/_components/scidrom.css'
 import Button from '@mui/material/Button';
 import React from 'react'
-import Footer from './footer';
-import { InView, useInView } from 'react-intersection-observer';
+import Footer from './Footer';
 
 const Scidrom = () => {
-  const { ref, inView, entry } = useInView({
-    /* Optional options */
-    threshold: 0,
-  });
-  console.log("Lep dan")
-  console.log({ inView })
-  const [displayedFooter, setDisplayedFooter] = React.useState<boolean | undefined>(false);
   return (
     <div id="testemonials" className='scidrom'>
       <div className='na'>
@@ -27,16 +19,8 @@ const Scidrom = () => {
         </div >
         <br />
         <br />
-        {/* <Box sx={{ position: "relative", backgroundColor: "orangered", width: "100%", padding: "10%", paddingBottom: "40%" }}>
-          <br />
-        </Box> */}
       </div>
-      <InView onChange={(inView) => setDisplayedFooter(inView)}>
-        {
-          displayedFooter ? <Footer /> : null
-        }
-
-      </InView>
+      <Footer />
     </div>
 
   )
