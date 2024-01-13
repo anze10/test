@@ -32,8 +32,11 @@ const scidrom = () => {
           <br />
         </Box> */}
       </div>
-      <InView onChange={(inView, entry) => console.log('Inview:', inView)}>
-        <Footer />
+      <InView onChange={(inView, entry) => setDisplayedFooter(inView)}>
+        {
+          displayedFooter ? <Footer /> : null
+        }
+
       </InView>
     </div>
 
