@@ -7,7 +7,7 @@ import Footer from './footer';
 import { Box } from '@mui/material';
 import { InView, useInView } from 'react-intersection-observer';
 
-const scidrom = () => {
+const Scidrom = () => {
   const { ref, inView, entry } = useInView({
     /* Optional options */
     threshold: 0,
@@ -44,4 +44,4 @@ const scidrom = () => {
 }
 /* tipka kontakterej me je ideja od dans in ce bo prevec  zajebavanja s tem d ato dela bom samo odstranu to sranje */
 
-export default scidrom
+export default Scidrom
