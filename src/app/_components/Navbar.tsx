@@ -1,12 +1,12 @@
 "use client"
 import Image from "next/image";
-import React, { Dispatch, SetStateAction, useState } from 'react'
-import { FaBars, FaTimes } from 'react-icons/fa'
-import logo from 'public/scidrom.jpg'
+import logo from 'public/scidrom.jpg';
+import { type Dispatch, type SetStateAction, useState } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
-import "./Navbar.css"
-import Link from "next/link";
 import { Button } from "@mui/material";
+import Link from "next/link";
+import "./Navbar.css";
 
 export type NavbarType = {
     navbarOpen: boolean,

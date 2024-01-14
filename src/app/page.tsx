@@ -1,11 +1,8 @@
-import Navbar, { NavbarType } from 'src/app/_components/Navbar'
+import Navbar from 'src/app/_components/Navbar'
 import Predstavitev from "./_components/Predstavitev";
 import Data from "./_components/Data";
-import Scidrom from "~/app/_components/scidrom"
+import Scidrom from "~/app/_components/Scidrom"
 import { Box } from '@mui/material';
-import Footer from '~/app/_components/footer';
-
-
 
 export default function Home() {
   return (
@@ -14,7 +11,6 @@ export default function Home() {
       <Predstavitev />
       <Data />
       <Scidrom />
-
     </Box>
   );
 }
