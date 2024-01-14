@@ -6,6 +6,7 @@
     "build": "next build",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
+    "db:seed": "prisma db seed",
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
@@ -57,5 +58,8 @@
     "initVersion": "7.23.2"
   },
   "packageManager": "npm@10.2.3",
-  "type": "module"
+  "type": "module",
+  "prisma": {
+    "seed": " npx tsx prisma/seed.ts"
+  }
 }

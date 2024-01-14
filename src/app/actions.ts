@@ -12,7 +12,7 @@ const meteorite_schema = z.object({
 export const get_meteorites = action(meteorite_schema, async ({ start_date, end_date }) => {
     const result = await db.meteoriti.findMany({
         where: {
-            dan: {
+            cas: {
                 gte: start_date,
                 lte: end_date
             }

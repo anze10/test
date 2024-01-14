@@ -67,9 +67,9 @@ const chartdata3 = [
 
 
 
-export default function GrafEna({ meteoriti: podatki }: { meteoriti: meteoriti[] }) {
-  const mapped_podatki = podatki.map((podatek) => ({
-    date: podatek.dan,
+export default function GrafEna({ meteoriti }: { meteoriti: meteoriti[] }) {
+  const mapped_podatki = meteoriti.map((meteorit) => ({
+    date: meteorit.cas,
     // ...
   }))
 
@@ -82,7 +82,7 @@ export default function GrafEna({ meteoriti: podatki }: { meteoriti: meteoriti[]
         <Title>Closed Pull Requests</Title>
         <BarChart
           className="mt-6"
-          data={chartdata3}
+          data={mapped_podatki}
           categories={["2022", "2023"]}
           index="date"
           colors={["green", "orange"]}
