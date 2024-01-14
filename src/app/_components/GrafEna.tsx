@@ -1,6 +1,7 @@
 "use client"
 import type { meteoriti } from "@prisma/client";
 import { BarChart, Card, Title } from "@tremor/react";
+import { useEffect, useState } from "react";
 
 const chartdata3 = [
   {
@@ -68,10 +69,15 @@ const chartdata3 = [
 
 
 export default function GrafEna({ meteoriti }: { meteoriti: meteoriti[] }) {
-  const mapped_podatki = meteoriti.map((meteorit) => ({
-    date: meteorit.cas,
-    // ...
-  }))
+  const [meteoritovNaDan, setMeteoritovNaDan] = useState<Map<Date, number>>(new Map())
+  useEffect(() => {
+    const meteoritNaDan: Map<Date, number> = new Map()
+    for (const meteorit of meteoriti) {
+      meteoritNaDan.get(meteorit.cas.)
+    }
+
+  })
+
 
   return (
     <>
