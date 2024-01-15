@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
@@ -66,10 +66,18 @@ export default function Podatki() {
               defaultValue='graf_ena'
               onChange={(e) => setDisplayedGraf(e.target.value)}
             >
-              <MenuItem value={"graf_ena"}>Graf ena</MenuItem>
-              <MenuItem value={"graf_dva"}>Graf dva</MenuItem>
+              /*<MenuItem value={"graf_ena"}>Graf ena</MenuItem>
+              <MenuItem value={"graf_dva"}>Graf dva</MenuItem>*/
             </Select>
           </FormControl>
+          <Button
+            variant="contained"
+            color='primary'
+            style={{ color: '#fff' }}
+            onClick={() => { setGrafEna(dayjs(Date.now())); setGrafDva(dayjs(Date.now())) }}
+
+          >
+            Počisti</Button>
         </Box>
         <div>
           {displayedGraf == "graf_ena" || displayedGraf == "" ? (
@@ -83,3 +91,4 @@ export default function Podatki() {
     </div>
   );
 }
+//zakaj smo ta gumb zbrisal če more bit

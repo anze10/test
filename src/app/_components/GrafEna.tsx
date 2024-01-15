@@ -1,5 +1,6 @@
 "use client"
 import { BarChart, Card, Title } from "@tremor/react";
+import Graf_dva from '~/app/_components/GrafDva';
 import { useEffect, useState } from "react";
 import type { MeteoritJS } from "../actions";
 
@@ -11,6 +12,7 @@ type Stolpec = {
 const meteoritNaDan = new Map<number, number>()
 export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
   const [graf, setGraf] = useState<Stolpec[]>([]);
+
 
   useEffect(() => {
     meteoritNaDan.clear()
@@ -42,7 +44,7 @@ export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
         background: "#444444"
       }}>
 
-        <Title>Closed Pull Requests</Title>
+        <Title>Število meteoritiv v enem dnevu</Title>
         <BarChart
           className="mt-6"
           data={graf}
@@ -50,6 +52,7 @@ export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
           index="date"
           colors={["green"]}
           yAxisWidth={30}
+
 
         />
       </Card>
