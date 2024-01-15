@@ -66,17 +66,42 @@ const chartdata3 = [
   },
 ];
 
+type DanInMesec = {
+  dan: number
+  mesec: number
+}
 
+type Stolpec = {
+  date: string
+  "Število meteoritov na dan": number
+}
 
+const meteoritNaDan = new Map<DanInMesec, number>()
 export default function GrafEna({ meteoriti }: { meteoriti: meteoriti[] }) {
-  const [meteoritovNaDan, setMeteoritovNaDan] = useState<Map<Date, number>>(new Map())
+  const [graf, setGraf] = useState<Stolpec[]>([]);
+
   useEffect(() => {
-    const meteoritNaDan: Map<Date, number> = new Map()
+    meteoritNaDan.clear()
+
     for (const meteorit of meteoriti) {
-      meteoritNaDan.get(meteorit.cas.)
+      const danInMesec: DanInMesec = {
+        dan: meteorit.cas.getDay(),
+        mesec: meteorit.cas.getMonth(),
+      }
+
+      //get or set meteoritNaDan
+      meteoritNaDan.set(danInMesec, (meteoritNaDan.get(danInMesec) ?? 0) + 1)
     }
 
-  })
+    const new_graf: Stolpec[] = [];
+    for (const [key, value] of meteoritNaDan) {
+      new_graf.push({
+        date: `${key.mesec}. ${key.dan}`,
+        "Število meteoritov na dan": value
+      })
+    }
+    setGraf(new_graf)
+  }, [meteoriti])
 
 
   return (
@@ -88,10 +113,10 @@ export default function GrafEna({ meteoriti }: { meteoriti: meteoriti[] }) {
         <Title>Closed Pull Requests</Title>
         <BarChart
           className="mt-6"
-          data={mapped_podatki}
-          categories={["2022", "2023"]}
+          data={graf}
+          categories={["Število meteoritov na dan"]}
           index="date"
-          colors={["green", "orange"]}
+          colors={["green"]}
           yAxisWidth={30}
 
         />

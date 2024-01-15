@@ -1,6 +1,6 @@
 "use client"
 
-import { Box } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, Switch } from '@mui/material';
 import Button from '@mui/material/Button';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import type { meteoriti } from '@prisma/client';
@@ -43,7 +43,7 @@ export default function Podatki() {
             value={grafEna}
             onChange={async (newValue) => {
               if (newValue == null) return
-              setDisplayedGraf("graf_dva")
+              // setDisplayedGraf("graf_dva")
               setGrafEna(newValue)
               await update_meteorite_data(newValue, grafDva)
             }}
@@ -53,18 +53,26 @@ export default function Podatki() {
             value={grafDva}
             onChange={async (newValue) => {
               if (newValue == null) return
-              setDisplayedGraf("graf_dva")
+              // setDisplayedGraf("graf_dva")
               setGrafDva(newValue)
               await update_meteorite_data(grafEna, newValue)
             }}
-            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
-
-          <Button
-            variant="contained"
-            onClick={() => { setDisplayedGraf("graf_ena") }}
-          >
-            Počisti
-          </Button>
+            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }}
+          />
+          <FormControl fullWidth>
+            <InputLabel id="graf_meteoriti">Age</InputLabel>
+            <Select
+              labelId="graf_meteoriti"
+              id="demo-simple-select"
+              value={displayedGraf}
+              label="Age"
+              defaultValue='graf_ena'
+              onChange={(e) => setDisplayedGraf(e.target.value)}
+            >
+              <MenuItem value={"graf_ena"}>Graf ena</MenuItem>
+              <MenuItem value={"graf_dva"}>Graf dva</MenuItem>
+            </Select>
+          </FormControl>
         </Box>
         <div>
           {displayedGraf == "graf_ena" || displayedGraf == "" ? (
