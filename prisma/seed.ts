@@ -1,5 +1,5 @@
-import { randomFill } from "crypto";
 import { db } from "~/server/db"
+
 function randomFromInterval(min: number, max: number) { // min and max included 
     return Math.random() * (max - min + 1) + min
 }
@@ -12,7 +12,6 @@ async function main() {
             data: {
                 cas: randomDate(new Date(2015, 1, 1), new Date()),
                 trajanje: randomFromInterval(1, 60)
-
             }
         })
 

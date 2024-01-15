@@ -1,26 +1,23 @@
 "use client"
 
-import { Box, FormControl, InputLabel, MenuItem, Select, Switch } from '@mui/material';
-import Button from '@mui/material/Button';
+import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import type { meteoriti } from '@prisma/client';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import Graf_dva from '~/app/_components/GrafDva';
 import Graf_ena from '~/app/_components/GrafEna';
-import { get_meteorites } from '../actions';
+import { type MeteoritJS, get_meteorites } from '../actions';
 import './Data.css';
 
 export default function Podatki() {
-  const [grafEna, setGrafEna] = React.useState<Dayjs>(dayjs(Date.now()));
-  const [grafDva, setGrafDva] = React.useState<Dayjs>(dayjs(Date.now()));
-  const [displayedGraf, setDisplayedGraf] = React.useState<string | undefined>("graf_ena");
-  const [meteoriti, setMeteoriti] = React.useState<meteoriti[]>([]);
+  const [grafEna, setGrafEna] = useState<Dayjs>(dayjs(Date.now()));
+  const [grafDva, setGrafDva] = useState<Dayjs>(dayjs(Date.now()));
+  const [displayedGraf, setDisplayedGraf] = useState<string | undefined>("graf_ena");
+  const [meteoriti, setMeteoriti] = useState<MeteoritJS[]>([]);
 
   const update_meteorite_data = async (start_date: Dayjs, end_date: Dayjs) => {
     const result = await get_meteorites({ start_date: start_date.toISOString(), end_date: end_date.toISOString() })
-    console.log("setting meteorite data", result)
     if (!result.data) return;
     setMeteoriti(result.data)
   }

@@ -20,7 +20,7 @@ const theme = createTheme({
   },
 });
 
-const FeedbackForm: React.FC = () => {
+const FeedbackForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [feedback, setFeedback] = useState('');

@@ -9,6 +9,12 @@ const meteorite_schema = z.object({
     end_date: z.string().datetime(),
 });
 
+export type MeteoritJS = {
+    id_meteorit: number,
+    trajanje: number,
+    cas: Date,
+};
+
 export const get_meteorites = action(meteorite_schema, async ({ start_date, end_date }) => {
     const result = await db.meteoriti.findMany({
         where: {
@@ -19,5 +25,11 @@ export const get_meteorites = action(meteorite_schema, async ({ start_date, end_
         },
     })
 
-    return result;
+    const js_result: MeteoritJS[] = result.map((item) => ({
+        cas: item.cas,
+        trajanje: item.trajanje.toNumber(),
+        id_meteorit: item.id_meteorit
+    }))
+
+    return js_result;
 })
