@@ -44,7 +44,7 @@ export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
         background: "#444444"
       }}>
 
-        <Title>Število meteoritiv v enem dnevu</Title>
+        <Title>Število meteoritiv v časovnem obdobju</Title>
         <BarChart
           className="mt-6"
           data={graf}
@@ -52,6 +52,7 @@ export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
           index="date"
           colors={["green"]}
           yAxisWidth={30}
+
 
 
         />

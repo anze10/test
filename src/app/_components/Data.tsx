@@ -11,8 +11,8 @@ import { type MeteoritJS, get_meteorites } from '../actions';
 import './Data.css';
 
 export default function Podatki() {
-  const [grafEna, setGrafEna] = useState<Dayjs>(dayjs(Date.now()));
-  const [grafDva, setGrafDva] = useState<Dayjs>(dayjs(Date.now()));
+  const [datePickerEna, setDatePickerEna] = useState<Dayjs>(dayjs(Date.now()));
+  const [datePickerDva, setDatepickerDva] = useState<Dayjs>(dayjs(Date.now()));
   const [displayedGraf, setDisplayedGraf] = useState<string | undefined>("graf_ena");
   const [meteoriti, setMeteoriti] = useState<MeteoritJS[]>([]);
 
@@ -37,22 +37,22 @@ export default function Podatki() {
           borderRadius: '4px',
         }}>
           <DatePicker
-            value={grafEna}
+            value={datePickerEna}
             onChange={async (newValue) => {
               if (newValue == null) return
               // setDisplayedGraf("graf_dva")
-              setGrafEna(newValue)
-              await update_meteorite_data(newValue, grafDva)
+              setDatePickerEna(newValue)
+              await update_meteorite_data(newValue, datePickerEna)
             }}
             sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
 
           <DatePicker
-            value={grafDva}
+            value={datePickerDva}
             onChange={async (newValue) => {
               if (newValue == null) return
               // setDisplayedGraf("graf_dva")
-              setGrafDva(newValue)
-              await update_meteorite_data(grafEna, newValue)
+              setDatepickerDva(newValue)
+              await update_meteorite_data(datePickerEna, newValue)
             }}
             sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }}
           />
@@ -74,7 +74,16 @@ export default function Podatki() {
             variant="contained"
             color='primary'
             style={{ color: '#fff' }}
-            onClick={() => { setGrafEna(dayjs(Date.now())); setGrafDva(dayjs(Date.now())) }}
+            onClick={async () => {
+              const ena = dayjs(Date.now())
+              const dva = dayjs(Date.now())
+              setDatePickerEna(dayjs(Date.now()));
+              setDatepickerDva(dayjs(Date.now()));
+
+              await update_meteorite_data(ena, datePickerEna);
+              await update_meteorite_data(ena, datePickerDva)
+            }}
+
 
           >
             Počisti</Button>

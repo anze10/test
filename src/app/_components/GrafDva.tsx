@@ -29,8 +29,8 @@ export default function GrafDva() {
     <Card style={{
       background: "#444444"
     }}>
-      <Title>Performance</Title>
-      <Text>Comparison between Sales and Profit</Text>
+      <Title></Title>
+      <Text>Podatki prikazani za dan  v urah</Text>
       <AreaChart
         className="mt-4 h-80"
         data={data}
