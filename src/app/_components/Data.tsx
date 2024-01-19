@@ -15,91 +15,98 @@ export default function Podatki() {
   const [datePickerDva, setDatepickerDva] = useState<Dayjs>(dayjs(Date.now()));
   const [displayedGraf, setDisplayedGraf] = useState<string | undefined>("graf_ena");
   const [meteoriti, setMeteoriti] = useState<MeteoritJS[]>([]);
-  const [spremembaGrafa, setSpremembaGrafa] = useState<boolean | undefined>(false);
+
 
   const update_meteorite_data = async (start_date: Dayjs, end_date: Dayjs) => {
     const result = await get_meteorites({ start_date: start_date.toISOString(), end_date: end_date.toISOString() })
     if (!result.data) return;
     setMeteoriti(result.data)
   }
+  const Data = () => {
+    const [spremembaGrafa, setSpremembaGrafa] = useState<boolean | undefined>(false);
+    const [selectedData, setSelectedData] = useState(null);
+
+    const handleColumnClick = (data: any) => {
+      setSelectedData(data);
+    };
 
 
-  return (
-    <div id="podatki" className='test'>
-      <div className='ola'>
-        <Box sx={{
-          display: 'flex',
-          paddingTop: '20px',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '10px',
-          backgroundColor: "#878787",
-          boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
-          marginBottom: '20px',
-          borderRadius: '4px',
-        }}>
-          <DatePicker
-            value={datePickerEna}
-            onChange={async (newValue) => {
-              if (newValue == null) return
-              // setDisplayedGraf("graf_dva")
-              setDatePickerEna(newValue)
-              await update_meteorite_data(newValue, datePickerEna)
-            }}
-            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
+    return (
+      <div id="podatki" className='test'>
+        <div className='ola'>
+          <Box sx={{
+            display: 'flex',
+            paddingTop: '20px',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '10px',
+            backgroundColor: "#878787",
+            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
+            marginBottom: '20px',
+            borderRadius: '4px',
+          }}>
+            <DatePicker
+              value={datePickerEna}
+              onChange={async (newValue) => {
+                if (newValue == null) return
+                // setDisplayedGraf("graf_dva")
+                setDatePickerEna(newValue)
+                await update_meteorite_data(newValue, datePickerEna)
+              }}
+              sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
 
-          <DatePicker
-            value={datePickerDva}
-            onChange={async (newValue) => {
-              if (newValue == null) return
-              // setDisplayedGraf("graf_dva")
-              setDatepickerDva(newValue)
-              await update_meteorite_data(datePickerEna, newValue)
-            }}
-            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }}
-          />
-          <FormControl fullWidth>
-            <InputLabel id="graf_meteoriti">Age</InputLabel>
-            <Select
-              labelId="graf_meteoriti"
-              id="demo-simple-select"
-              value={displayedGraf}
-              label="Age"
-              defaultValue='graf_ena'
-              onChange={(e) => setDisplayedGraf(e.target.value)}
-            >
+            <DatePicker
+              value={datePickerDva}
+              onChange={async (newValue) => {
+                if (newValue == null) return
+                // setDisplayedGraf("graf_dva")
+                setDatepickerDva(newValue)
+                await update_meteorite_data(datePickerEna, newValue)
+              }}
+              sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }}
+            />
+            <FormControl fullWidth>
+              <InputLabel id="graf_meteoriti">Age</InputLabel>
+              <Select
+                labelId="graf_meteoriti"
+                id="demo-simple-select"
+                value={displayedGraf}
+                label="Age"
+                defaultValue='graf_ena'
+                onChange={(e) => setDisplayedGraf(e.target.value)}
+              >
               /*<MenuItem value={"graf_ena"}>Graf ena</MenuItem>
-              <MenuItem value={"graf_dva"}>Graf dva</MenuItem>*/
-            </Select>
-          </FormControl>
-          <Button
-            variant="contained"
-            color='primary'
-            style={{ color: '#fff' }}
-            onClick={async () => {
-              const ena = dayjs(Date.now())
-              const dva = dayjs(Date.now())
-              setDatePickerEna(dayjs(Date.now()));
-              setDatepickerDva(dayjs(Date.now()));
+                <MenuItem value={"graf_dva"}>Graf dva</MenuItem>*/
+              </Select>
+            </FormControl>
+            <Button
+              variant="contained"
+              color='primary'
+              style={{ color: '#fff' }}
+              onClick={async () => {
+                const ena = dayjs(Date.now())
+                const dva = dayjs(Date.now())
+                setDatePickerEna(dayjs(Date.now()));
+                setDatepickerDva(dayjs(Date.now()));
 
-              await update_meteorite_data(ena, datePickerEna);
-              await update_meteorite_data(ena, datePickerDva)
-            }}
+                await update_meteorite_data(ena, datePickerEna);
+                await update_meteorite_data(ena, datePickerDva)
+              }}
 
 
-          >
-            Počisti</Button>
-        </Box>
-        <div>
-          {spremembaGrafa == false ? (
-            <Graf_ena meteoriti={meteoriti} />
-          ) : null}
-          {spremembaGrafa == true ? (
-            <Graf_dva />
-          ) : null}
+            >
+              Počisti</Button>
+          </Box>
+          <div>
+            {spremembaGrafa == false ? (
+              <Graf_ena meteoriti={meteoriti} onColumnClick={handleColumnClick} />
+            ) : null}
+            {spremembaGrafa == true ? (
+              <Graf_dva />
+            ) : null}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-//zakaj smo ta gumb zbrisal če more bit
