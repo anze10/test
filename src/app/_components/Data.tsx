@@ -15,12 +15,14 @@ export default function Podatki() {
   const [datePickerDva, setDatepickerDva] = useState<Dayjs>(dayjs(Date.now()));
   const [displayedGraf, setDisplayedGraf] = useState<string | undefined>("graf_ena");
   const [meteoriti, setMeteoriti] = useState<MeteoritJS[]>([]);
+  const [spremembaGrafa, setSpremembaGrafa] = useState<boolean | undefined>(false);
 
   const update_meteorite_data = async (start_date: Dayjs, end_date: Dayjs) => {
     const result = await get_meteorites({ start_date: start_date.toISOString(), end_date: end_date.toISOString() })
     if (!result.data) return;
     setMeteoriti(result.data)
   }
+
 
   return (
     <div id="podatki" className='test'>
@@ -89,10 +91,10 @@ export default function Podatki() {
             Počisti</Button>
         </Box>
         <div>
-          {displayedGraf == "graf_ena" || displayedGraf == "" ? (
+          {spremembaGrafa == false ? (
             <Graf_ena meteoriti={meteoriti} />
           ) : null}
-          {displayedGraf == "graf_dva" ? (
+          {spremembaGrafa == true ? (
             <Graf_dva />
           ) : null}
         </div>
