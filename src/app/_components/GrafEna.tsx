@@ -13,6 +13,11 @@ const meteoritNaDan = new Map<number, number>()
 export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
   const [graf, setGraf] = useState<Stolpec[]>([]);
 
+  const handleColumnClick = (clickedData: any) => {
+    // Assuming 'onColumnClick' is a prop function passed from the parent component (Data.tsx)
+    onColumnClick(clickedData);
+  };
+
 
   useEffect(() => {
     meteoritNaDan.clear()
@@ -54,9 +59,12 @@ export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
           yAxisWidth={30}
 
 
-
         />
       </Card>
     </>
   );
+}
+
+function onColumnClick(clickedData: any) {
+  throw new Error("Function not implemented.");
 }
