@@ -10,14 +10,15 @@ type Stolpec = {
 }
 
 const meteoritNaDan = new Map<number, number>()
-export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
+
+type GrafEnaType = {
+  meteoriti: MeteoritJS[];
+  onColumnClick: React.Dispatch<React.SetStateAction<null>>;
+};
+
+// TODO: uporabi onColumnClick
+export default function GrafEna({ meteoriti, onColumnClick }: GrafEnaType) {
   const [graf, setGraf] = useState<Stolpec[]>([]);
-
-  const handleColumnClick = (clickedData: any) => {
-    // Assuming 'onColumnClick' is a prop function passed from the parent component (Data.tsx)
-    onColumnClick(clickedData);
-  };
-
 
   useEffect(() => {
     meteoritNaDan.clear()
