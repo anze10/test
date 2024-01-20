@@ -1,5 +1,6 @@
 "use client"
 import { AreaChart, Card, Text, Title } from "@tremor/react";
+import { GrafEnaSelectionType } from "./Data";
 
 const data = [
   {
@@ -24,7 +25,11 @@ const valueFormatter = (number: number): string => {
   return `$${Intl.NumberFormat("us").format(number).toString()}`;
 };
 
-export default function GrafDva() {
+type GrafDvaType = {
+  selectedData: GrafEnaSelectionType | null;
+}
+
+export default function GrafDva({ selectedData }: GrafDvaType) {
   return (
     <Card style={{
       background: "#444444"

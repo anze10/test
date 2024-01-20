@@ -10,13 +10,17 @@ import GrafEna from '~/app/_components/GrafEna';
 import { type MeteoritJS, get_meteorites } from '../actions';
 import './Data.css';
 
+export type GrafEnaSelectionType = {
+  date: number;
+};
+
 export default function Podatki() {
   const [datePickerEna, setDatePickerEna] = useState<Dayjs>(dayjs(Date.now()));
   const [datePickerDva, setDatepickerDva] = useState<Dayjs>(dayjs(Date.now()));
 
   const [displayedGraf, setDisplayedGraf] = useState<"graf_ena" | "graf_dva">("graf_ena");
   const [meteoriti, setMeteoriti] = useState<MeteoritJS[]>([]);
-  const [selectedData, setSelectedData] = useState(null);
+  const [selectedData, setSelectedData] = useState<GrafEnaSelectionType | null>(null);
 
 
   const update_meteorite_data = async (start_date: Dayjs, end_date: Dayjs) => {
@@ -77,7 +81,10 @@ export default function Podatki() {
         </Box>
         <div>
           {displayedGraf == 'graf_ena' ? (
-            <GrafEna meteoriti={meteoriti} onColumnClick={setSelectedData} />
+            <GrafEna meteoriti={meteoriti} onColumnClick={(selected_data) => {
+              setDisplayedGraf("graf_dva")
+              setSelectedData(selected_data)
+            }} />
           ) : null}
           {displayedGraf == 'graf_dva' ? (
             <GrafDva selectedData={selectedData} />

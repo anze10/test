@@ -3,9 +3,10 @@ import { BarChart, Card, Title } from "@tremor/react";
 import Graf_dva from '~/app/_components/GrafDva';
 import { useEffect, useState } from "react";
 import type { MeteoritJS } from "../actions";
+import { GrafEnaSelectionType } from "./Data";
 
 type Stolpec = {
-  date: string
+  date: number
   "Število meteoritov na dan": number
 }
 
@@ -13,7 +14,7 @@ const meteoritNaDan = new Map<number, number>()
 
 type GrafEnaType = {
   meteoriti: MeteoritJS[];
-  onColumnClick: React.Dispatch<React.SetStateAction<null>>;
+  onColumnClick: React.Dispatch<React.SetStateAction<GrafEnaSelectionType | null>>;
 };
 
 // TODO: uporabi onColumnClick
@@ -36,7 +37,7 @@ export default function GrafEna({ meteoriti, onColumnClick }: GrafEnaType) {
     const new_graf: Stolpec[] = [];
     for (const [key, value] of meteoritNaDan) {
       new_graf.push({
-        date: new Date(key).toLocaleDateString("en-US"),
+        date: key,
         "Število meteoritov na dan": value
       })
     }
@@ -58,14 +59,17 @@ export default function GrafEna({ meteoriti, onColumnClick }: GrafEnaType) {
           index="date"
           colors={["green"]}
           yAxisWidth={30}
-
-
+          valueFormatter={(miliseconds: number): string => {
+            const new_date = new Date(miliseconds).toLocaleDateString("en-US")
+            console.log(miliseconds, new_date)
+            return new_date
+          }}
+          onValueChange={(value) => {
+            console.log({ value })
+            onColumnClick(value)
+          }}
         />
       </Card>
     </>
   );
-}
-
-function onColumnClick(clickedData: any) {
-  throw new Error("Function not implemented.");
 }
