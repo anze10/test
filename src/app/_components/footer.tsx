@@ -23,7 +23,7 @@ const Footer = () => {
                 Luka
             </Link>
             {' | '}
-            <Link href="timnahtigal" color="inherit" sx={{ color: "white", marginRight: 8 }}>
+            <Link href="https://github.com/timnahtigal" color="inherit" sx={{ color: "white", marginRight: 8 }}>
                 <GitHubIcon sx={{ marginRight: 1 }} />
                 Tim
             </Link>
