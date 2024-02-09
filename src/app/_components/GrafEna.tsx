@@ -1,98 +1,74 @@
 "use client"
-
-import React, { useEffect, useState } from "react";
-import { Card } from "@tremor/react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-
+import { BarChart, Card, Title } from "@tremor/react";
+import Graf_dva from '~/app/_components/GrafDva';
+import { useEffect, useState } from "react";
 import type { MeteoritJS } from "../actions";
+import GrafEnaSelectionType from "./Data";
+
 type Stolpec = {
   date: number
   "Število meteoritov na dan": number
 }
 
+const meteoritNaDan = new Map<number, number>()
+
 type GrafEnaType = {
   meteoriti: MeteoritJS[];
   onColumnClick: React.Dispatch<React.SetStateAction<GrafEnaSelectionType | null>>;
 };
-export type GrafEnaSelectionType = {
-  date: number;
-};
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Število meteoritiv v časovnem obdobju',
-    },
-  },
-};
 
-const meteoritNaDan = new Map<number, number>();
-
-export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
+// TODO: uporabi onColumnClick
+export default function GrafEna({ meteoriti, onColumnClick }: GrafEnaType) {
   const [graf, setGraf] = useState<Stolpec[]>([]);
 
   useEffect(() => {
-    meteoritNaDan.clear();
+    meteoritNaDan.clear()
 
     for (const meteorit of meteoriti) {
-      const month = meteorit.cas.getMonth();
-      const day = meteorit.cas.getDate();
-      const year = meteorit.cas.getFullYear();
-      const approx_date = new Date(year, month, day);
+      const month = meteorit.cas.getMonth()
+      const day = meteorit.cas.getDate()
+      const year = meteorit.cas.getFullYear()
+      // create date from year, month, day
+      const approx_date = new Date(year, month, day)
 
-      meteoritNaDan.set(approx_date.getTime(), (meteoritNaDan.get(approx_date.getTime()) ?? 0) + 1);
+      meteoritNaDan.set(approx_date.getTime(), (meteoritNaDan.get(approx_date.getTime()) ?? 0) + 1)
     }
 
     const new_graf: Stolpec[] = [];
     for (const [key, value] of meteoritNaDan) {
       new_graf.push({
-        date: new Date(key).toLocaleDateString("en-US"),
-        "Število meteoritov na dan": value,
-      });
+        date: key,
+        "Število meteoritov na dan": value
+      })
     }
-    setGraf(new_graf);
-  }, [meteoriti]);
-
-  const data = {
-    labels: graf.map(item => item.date),
-    datasets: [
-      {
-        label: 'Število meteoritov na dan',
-        data: graf.map(item => item["Število meteoritov na dan"]),
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-      },
-    ],
-  };
-
+    setGraf(new_graf)
+  }, [meteoriti])
 
 
   return (
     <>
-      <Card style={{ background: "#444444" }}>
-        <Bar options={options} data={data} />;
+      <Card style={{
+        background: "#444444"
+      }}>
+
+        <Title>Število meteoritiv v časovnem obdobju</Title>
+        <BarChart
+          className="mt-6"
+          data={graf}
+          categories={["Število meteoritov na dan"]}
+          index="date"
+          colors={["green"]}
+          yAxisWidth={30}
+          valueFormatter={(miliseconds: number): string => {
+            const new_date = new Date(miliseconds).toLocaleDateString("en-US")
+            console.log(miliseconds, new_date)
+            return new_date
+          }}
+          onValueChange={(value) => {
+            console.log({ value })
+            onColumnClick(value)
+          }}
+        />
       </Card>
     </>
   );
