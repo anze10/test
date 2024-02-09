@@ -1,18 +1,56 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Card, Title } from "@tremor/react";
-import Chart from 'chart.js/auto';
-import type { MeteoritJS } from "../actions";
+"use client"
 
+import React, { useEffect, useState } from "react";
+import { Card } from "@tremor/react";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+import type { MeteoritJS } from "../actions";
 type Stolpec = {
-  date: string;
-  "Število meteoritov na dan": number;
+  date: number
+  "Število meteoritov na dan": number
+}
+
+type GrafEnaType = {
+  meteoriti: MeteoritJS[];
+  onColumnClick: React.Dispatch<React.SetStateAction<GrafEnaSelectionType | null>>;
+};
+export type GrafEnaSelectionType = {
+  date: number;
+};
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' as const,
+    },
+    title: {
+      display: true,
+      text: 'Število meteoritiv v časovnem obdobju',
+    },
+  },
 };
 
 const meteoritNaDan = new Map<number, number>();
 
 export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
   const [graf, setGraf] = useState<Stolpec[]>([]);
-  const chartRef = useRef(null);
 
   useEffect(() => {
     meteoritNaDan.clear();
@@ -36,44 +74,25 @@ export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
     setGraf(new_graf);
   }, [meteoriti]);
 
-  useEffect(() => {
-    if (chartRef.current && graf.length > 0) {
-      const chartContext = chartRef.current.getContext('2d');
-      new Chart(chartContext, {
-        type: 'bar',
-        data: {
-          labels: graf.map(item => item.date),
-          datasets: [{
-            label: 'Število meteoritov na dan',
-            backgroundColor: 'green',
-            data: graf.map(item => item["Število meteoritov na dan"]),
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          },
-          plugins: {
-            legend: {
-              display: false
-            },
-            title: {
-              display: true,
-              text: 'Število meteoritiv v časovnem obdobju'
-            }
-          }
-        }
-      });
-    }
-  }, [graf]);
+  const data = {
+    labels: graf.map(item => item.date),
+    datasets: [
+      {
+        label: 'Število meteoritov na dan',
+        data: graf.map(item => item["Število meteoritov na dan"]),
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+
 
   return (
     <>
       <Card style={{ background: "#444444" }}>
-        <Title>Število meteoritiv v časovnem obdobju</Title>
-        <canvas ref={chartRef} className="mt-6"></canvas>
+        <Bar options={options} data={data} />;
       </Card>
     </>
   );
