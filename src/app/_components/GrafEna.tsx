@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef } from 'react';
+import React, { Dispatch, SetStateAction, useRef } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -44,7 +44,12 @@ type Stolpec = {
 
 const meteoritNaDan = new Map<number, number>();
 
-export default function GrafEna({ meteoriti }: { meteoriti: MeteoritJS[] }) {
+type GrafEnaType = {
+  meteoriti: MeteoritJS[];
+  spremembaGrafa: Dispatch<SetStateAction<string>>;
+}
+
+export default function GrafEna({ meteoriti, spremembaGrafa }: GrafEnaType) {
   const [graf, setGraf] = useState<Stolpec[]>([]);
   const chartRef = useRef(null);
 
