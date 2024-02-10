@@ -57,20 +57,6 @@ export default function Podatki() {
             }}
             sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }}
           />
-          <FormControl fullWidth>
-            <InputLabel id="graf_meteoriti">Age</InputLabel>
-            <Select
-              labelId="graf_meteoriti"
-              id="demo-simple-select"
-              value={displayedGraf}
-              label="Age"
-              defaultValue='graf_ena'
-              onChange={(e) => setDisplayedGraf(e.target.value)}
-            >
-              {/*<MenuItem value={"graf_ena"}>Graf ena</MenuItem>
-                <MenuItem value={"graf_dva"}>Graf dva</MenuItem> */}
-            </Select>
-          </FormControl>
           <Button
             variant="contained"
             color='primary'
