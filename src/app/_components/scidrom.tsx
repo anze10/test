@@ -3,7 +3,7 @@
 import 'src/app/_components/scidrom.css'
 import Button from '@mui/material/Button';
 import React from 'react'
-import Footer from './Footer';
+import Footer from './footer';
 
 const Scidrom = () => {
   return (
