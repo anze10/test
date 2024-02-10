@@ -37,21 +37,21 @@ export default function Podatki() {
           marginBottom: '20px',
           borderRadius: '4px',
         }}>
-          <DatePicker
-            value={datePickerEna}
-            onChange={async (newValue) => {
-              if (newValue == null) return
-              // setDisplayedGraf("graf_dva")
-              setDatePickerEna(newValue)
-              await update_meteorite_data(newValue, datePickerEna)
-            }}
-            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
+          <Box sx={{ positio: 'center' }}>
+            <DatePicker
+              value={datePickerEna}
+              onChange={async (newValue) => {
+                if (newValue == null) return
+                setDatePickerEna(newValue)
+                await update_meteorite_data(newValue, datePickerEna)
+              }}
+              sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
+          </Box>
 
           <DatePicker
             value={datePickerDva}
             onChange={async (newValue) => {
               if (newValue == null) return
-              // setDisplayedGraf("graf_dva")
               setDatepickerDva(newValue)
               await update_meteorite_data(datePickerEna, newValue)
             }}

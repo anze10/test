@@ -1,82 +1,57 @@
-"use client"
-import React, { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
-import GrafEnaSelectionType from "./Data";
+import React from 'react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
-const data = [
-  {
-    Month: "Jan 21",
-    Sales: 2890,
-    Profit: 2400,
-  },
-  {
-    Month: "Feb 21",
-    Sales: 1890,
-    Profit: 1398,
-  },
-  // ...
-  {
-    Month: "Jan 22",
-    Sales: 3890,
-    Profit: 2980,
-  },
-];
 
-const GrafDva = ({ selectedData }) => {
-  const chartRef = useRef(null);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-  useEffect(() => {
-    const ctx = chartRef.current.getContext('2d');
-    const chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: data.map(d => d.Month),
-        datasets: [
-          {
-            label: 'Sales',
-            data: data.map(d => d.Sales),
-            borderColor: 'green',
-            backgroundColor: 'rgba(0, 255, 0, 0.5)',
-            fill: false,
-          },
-          {
-            label: 'Profit',
-            data: data.map(d => d.Profit),
-            borderColor: 'orange',
-            backgroundColor: 'rgba(255, 165, 0, 0.5)',
-            fill: false,
-          }
-        ]
+const GrafDva = ({ selectedData }: { selectedData: any }) => {
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
       },
-      options: {
-        scales: {
-          y: {
-            ticks: {
-              // Include a dollar sign in the ticks
-              callback: function (value, index, ticks) {
-                return `$${Intl.NumberFormat("us").format(value)}`;
-              }
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            display: true
-          }
-        },
-        maintainAspectRatio: false
-      }
-    });
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart',
+      },
+    },
+  };
 
-    return () => chart.destroy();
-  }, [selectedData]); // Re-render chart if selectedData changes
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-  return (
-    <div style={{ background: "#444444", padding: "20px", height: "450px" }}>
-      <h2>Podatki prikazani za dan v urah</h2>
-      <canvas ref={chartRef} style={{ height: "400px" }}></canvas>
-    </div>
-  );
-};
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  };
+
+  return (<Line options={options} data={data} />);
+}
 
 export default GrafDva;

@@ -78,9 +78,9 @@ export default function GrafEna({ meteoriti, spremembaGrafa }: GrafEnaType) {
     labels: graf.map(item => item.date),
     datasets: [
       {
-        label: 'Dataset 1',
+        label: 'meteoriti',
         data: graf.map(item => item["Število meteoritov na dan"]),
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        backgroundColor: 'green',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
       },
@@ -90,7 +90,7 @@ export default function GrafEna({ meteoriti, spremembaGrafa }: GrafEnaType) {
   return (
     <>
       <Card style={{ background: "#444444" }}>
-        <Bar options={options} data={data} />;
+        <Bar options={options} data={data} />
       </Card>
     </>
   );
