@@ -16,13 +16,17 @@ export default function Podatki() {
   const [displayedGraf, setDisplayedGraf] = useState<string | undefined>("graf_ena");
   const [meteoriti, setMeteoriti] = useState<MeteoritJS[]>([]);
   const [spremembaGrafa, setSpremembaGrafa] = useState<string>("graf_ena");
+  const [selectedData, setSelectedData] = useState<any>(undefined);
 
   const update_meteorite_data = async (start_date: Dayjs, end_date: Dayjs) => {
     const result = await get_meteorites({ start_date: start_date.toISOString(), end_date: end_date.toISOString() })
     if (!result.data) return;
     setMeteoriti(result.data)
   }
-
+  const handleColumnClick = (data: any) => {
+    setSelectedData(data);
+    setDisplayedGraf("graf_dva");
+  };
   return (
     <div id="podatki" className='test'>
       <div className='ola'>
@@ -37,16 +41,14 @@ export default function Podatki() {
           marginBottom: '20px',
           borderRadius: '4px',
         }}>
-          <Box sx={{ positio: 'center' }}>
-            <DatePicker
-              value={datePickerEna}
-              onChange={async (newValue) => {
-                if (newValue == null) return
-                setDatePickerEna(newValue)
-                await update_meteorite_data(newValue, datePickerEna)
-              }}
-              sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
-          </Box>
+          <DatePicker
+            value={datePickerEna}
+            onChange={async (newValue) => {
+              if (newValue == null) return
+              setDatePickerEna(newValue)
+              await update_meteorite_data(newValue, datePickerEna)
+            }}
+            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
 
           <DatePicker
             value={datePickerDva}
@@ -55,8 +57,7 @@ export default function Podatki() {
               setDatepickerDva(newValue)
               await update_meteorite_data(datePickerEna, newValue)
             }}
-            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }}
-          />
+            sx={{ backgroundColor: '#a9a9a9', color: '#fff', border: 'none', borderRadius: '4px' }} />
           <Button
             variant="contained"
             color='primary'
@@ -76,11 +77,11 @@ export default function Podatki() {
             Počisti</Button>
         </Box>
         <div>
-          {spremembaGrafa == "graf_ena" ? (
-            <Graf_ena meteoriti={meteoriti} spremembaGrafa={setSpremembaGrafa} />
+          {displayedGraf == "graf_ena" ? (
+            <Graf_ena meteoriti={meteoriti} spremembaGrafa={setSpremembaGrafa} onColumnClick={handleColumnClick} />
           ) : null}
-          {spremembaGrafa == "graf_dva" ? (
-            <Graf_dva selectedData={undefined} />
+          {displayedGraf == "graf_dva" ? (
+            <Graf_dva selectedData={selectedData} />
           ) : null}
         </div>
       </div>

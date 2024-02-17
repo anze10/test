@@ -9,8 +9,12 @@ import {
   Title,
   Tooltip,
   Legend,
+  Chart,
+  ChartTypeRegistry,
+  Point,
+  BubbleDataPoint,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Bar, getElementAtEvent } from 'react-chartjs-2';
 import Graf_dva from '~/app/_components/GrafDva';
 import { useEffect, useState } from "react";
 import type { MeteoritJS } from "../actions";
@@ -43,15 +47,20 @@ type Stolpec = {
 };
 
 const meteoritNaDan = new Map<number, number>();
-
 type GrafEnaType = {
   meteoriti: MeteoritJS[];
+
   spremembaGrafa: Dispatch<SetStateAction<string>>;
 }
+type neki = Chart<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>
+
 
 export default function GrafEna({ meteoriti, spremembaGrafa }: GrafEnaType) {
   const [graf, setGraf] = useState<Stolpec[]>([]);
-  const chartRef = useRef(null);
+  const chartRef = useRef<Chart<"bar", (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>>(null);
+
+
+  {/*const chartRef = useRef<neki>(null);*/ }
 
   useEffect(() => {
     meteoritNaDan.clear();
@@ -83,15 +92,31 @@ export default function GrafEna({ meteoriti, spremembaGrafa }: GrafEnaType) {
         backgroundColor: 'green',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
-      },
-    ],
-  };
 
+      },
+
+    ],
+
+
+  };
+  const [datum, setDateum] = useState(new Date());
   return (
     <>
+
+
       <Card style={{ background: "#444444" }}>
-        <Bar options={options} data={data} />
+        <Bar
+          options={options}
+          data={data}
+          ref={chartRef}
+          onClick={(event) => {
+            const element = chartRef.current && getElementAtEvent(chartRef.current, event)[0];
+            console.log(element);
+            setDateum(graf[element.index]);
+          }}
+        />
       </Card>
     </>
   );
+
 }

@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-
+import GrafEnaSelectionType from "./Data";
 
 ChartJS.register(
   CategoryScale,
@@ -22,7 +22,14 @@ ChartJS.register(
   Legend
 );
 
-const GrafDva = ({ selectedData }: { selectedData: any }) => {
+const valueFormatter = (number: number): string => {
+  return `$${Intl.NumberFormat("us").format(number).toString()}`;
+};
+type GrafDvaType = {
+  selectedData: GrafEnaSelectionType | null;
+}
+
+const GrafDva = ({ selectedData }: GrafDvaType) => {
 
   const options = {
     responsive: true,
