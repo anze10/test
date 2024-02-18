@@ -14,9 +14,8 @@ import {
   type BubbleDataPoint,
 } from 'chart.js';
 import { Bar, getElementAtEvent } from 'react-chartjs-2';
-import { useEffect, useState } from "react";
-import type { MeteoritJS } from "../actions";
 import Card from '@mui/material/Card';
+import { type Stolpec } from './Data';
 
 ChartJS.register(
   CategoryScale,
@@ -35,25 +34,15 @@ const options = {
     },
     title: {
       display: true,
-      text: 'Število meteoritiv v časovnem obdobju',
+      text: 'Število meteoritov na dan',
     },
   },
 };
 
-type Stolpec = {
-  date: string;
-  "Število meteoritov na dan": number;
-};
-
 type GrafEnaType = {
-  stolpciMeteoritov: MeteoritJS[][];
+  stolpciMeteoritov: Stolpec[];
   onColumnClicked: (index?: number) => void;
 }
-
-/* new_graf.push({
-        date: new Date(key).toLocaleDateString("en-US"),
-        "Število meteoritov na dan": value,
-      }); */
 
 type ChartType = Chart<"bar", (number | [number, number] | Point | BubbleDataPoint | null)[], unknown>
 
@@ -61,11 +50,12 @@ export default function GrafEna({ stolpciMeteoritov, onColumnClicked }: GrafEnaT
   const chartRef = useRef<ChartType>();
 
   const data = useMemo(() => ({
-    labels: stolpciMeteoritov.map(item => item.date),
+    // Date from Unix miliseconds    
+    labels: stolpciMeteoritov.map(item => new Date(item.date).toLocaleDateString("en-US")),
     datasets: [
       {
         label: 'meteoriti',
-        data: stolpciMeteoritov.map(item => item["Število meteoritov na dan"]),
+        data: stolpciMeteoritov.map(item => item.meteoriti.length),
         backgroundColor: 'green',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,

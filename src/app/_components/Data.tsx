@@ -4,23 +4,28 @@ import { Box, Button } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Graf_dva from '~/app/_components/GrafDva';
 import Graf_ena from '~/app/_components/GrafEna';
 import { type MeteoritJS, get_meteorites } from '../actions';
 import './Data.css';
+
+export type Stolpec = {
+  date: number;
+  meteoriti: MeteoritJS[];
+};
 
 export default function Podatki() {
   const [datePickerEna, setDatePickerEna] = useState<Dayjs>(dayjs().subtract(100, 'day'));
   const [datePickerDva, setDatepickerDva] = useState<Dayjs>(dayjs());
   const [selectedGraph, setSelectedGraph] = useState<string | undefined>("graf_ena");
   const [meteoriti, setMeteoriti] = useState<MeteoritJS[]>([]);
-  const [selectedMeteoriti, setSelectedMeteoriti] = useState<MeteoritJS[]>([]);
-  const [stolpciMeteoritov, setStolpciMeteoritov] = useState<MeteoritJS[][]>([]);
+  const [selectedMeteoriti, setSelectedMeteoriti] = useState<Stolpec | undefined>(undefined);
+  const [meteoritNaDan, setMeteoritiNaDan] = useState(new Map<number, MeteoritJS[]>());
 
   useEffect(() => {
     // A Map object iterates entries, keys, and values in the order of entry insertion. - Mozilla
-    const meteoritNaDan = new Map<number, MeteoritJS[]>();
+    const groups = new Map<number, MeteoritJS[]>();
 
     for (const meteorit of meteoriti) {
       const month = meteorit.cas.getMonth();
@@ -28,17 +33,28 @@ export default function Podatki() {
       const year = meteorit.cas.getFullYear();
       const approx_date = new Date(year, month, day);
 
-      meteoritNaDan.set(approx_date.getTime(), meteoritNaDan.get(approx_date.getTime()) ?? []);
+      // add to the map using approx_date and create an array if the value does not exist
+      if (!groups.has(approx_date.getTime())) {
+        groups.set(approx_date.getTime(), [meteorit]);
+      } else {
+        groups.get(approx_date.getTime())?.push(meteorit);
+      }
     }
 
-    // serialize the map into an array
-    const new_graf: MeteoritJS[][] = [];
-    for (const [, meteoriti] of meteoritNaDan) {
-      new_graf.push(meteoriti);
-    }
-
-    setStolpciMeteoritov(new_graf);
+    setMeteoritiNaDan(groups);
   }, [meteoriti]);
+
+  const meteoriti_array = useMemo(() => {
+    const array: Stolpec[] = [];
+    for (const [date, meteoriti] of meteoritNaDan) {
+      array.push({
+        date,
+        meteoriti
+      });
+    }
+
+    return array
+  }, [meteoritNaDan]);
 
   const update_meteorite_data = async (start_date: Dayjs, end_date: Dayjs) => {
     const result = await get_meteorites({ start_date: start_date.toISOString(), end_date: end_date.toISOString() })
@@ -92,7 +108,7 @@ export default function Podatki() {
             style={{ color: '#fff' }}
             onClick={() => {
               reset_date_pickers()
-              setSelectedMeteoriti([]);
+              setSelectedMeteoriti(undefined);
               setSelectedGraph("graf_ena");
             }}
           >
@@ -101,11 +117,11 @@ export default function Podatki() {
         <div>
           {selectedGraph == "graf_ena" ? (
             <Graf_ena
-              stolpciMeteoritov={stolpciMeteoritov}
+              stolpciMeteoritov={meteoriti_array}
               onColumnClicked={(index?: number) => {
                 if (typeof index !== 'number') return;
 
-                const stolpec = stolpciMeteoritov[index]
+                const stolpec = meteoriti_array[index]
                 if (typeof stolpec === 'undefined') return;
 
                 setSelectedMeteoriti(stolpec);

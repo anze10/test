@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { type MeteoritJS } from '../actions';
+import { type Stolpec } from './Data';
 
 ChartJS.register(
   CategoryScale,
@@ -50,13 +50,13 @@ const data = {
 };
 
 type GrafDvaType = {
-  selectedMeteoriti?: MeteoritJS[];
+  selectedMeteoriti?: Stolpec;
 }
 
-const GrafDva = ({ selectedMeteoriti: selectedDay }: GrafDvaType) => {
+const GrafDva = ({ selectedMeteoriti }: GrafDvaType) => {
   useEffect(() => {
-    console.log({ selectedDay })
-  }, [selectedDay])
+    console.log("to so izbrani meteoriti", { selectedMeteoriti })
+  }, [selectedMeteoriti])
 
   return (<Line options={options} data={data} />);
 }
