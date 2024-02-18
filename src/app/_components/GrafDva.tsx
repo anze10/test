@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import GrafEnaSelectionType from "./Data";
+import { type MeteoritJS } from '../actions';
 
 ChartJS.register(
   CategoryScale,
@@ -22,41 +22,41 @@ ChartJS.register(
   Legend
 );
 
-const valueFormatter = (number: number): string => {
-  return `$${Intl.NumberFormat("us").format(number).toString()}`;
+const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top' as const,
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Line Chart',
+    },
+  },
 };
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+const data = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: [65, 59, 80, 81, 56, 55, 40],
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+  ],
+};
+
 type GrafDvaType = {
-  selectedData: GrafEnaSelectionType | null;
+  selectedMeteoriti?: MeteoritJS[];
 }
 
-const GrafDva = ({ selectedData }: GrafDvaType) => {
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart',
-      },
-    },
-  };
-
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-    ],
-  };
+const GrafDva = ({ selectedMeteoriti: selectedDay }: GrafDvaType) => {
+  useEffect(() => {
+    console.log({ selectedDay })
+  }, [selectedDay])
 
   return (<Line options={options} data={data} />);
 }
