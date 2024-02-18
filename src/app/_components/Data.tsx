@@ -2,7 +2,7 @@
 
 import { Box, Button } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Dayjs } from 'dayjs';
+import { type Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
 import Graf_dva from '~/app/_components/GrafDva';
