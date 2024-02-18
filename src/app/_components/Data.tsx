@@ -2,7 +2,7 @@
 
 import { Box, Button } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import type { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import React, { useEffect, useMemo, useState } from 'react';
 import Graf_dva from '~/app/_components/GrafDva';
@@ -22,6 +22,13 @@ export default function Podatki() {
   const [meteoriti, setMeteoriti] = useState<MeteoritJS[]>([]);
   const [selectedMeteoriti, setSelectedMeteoriti] = useState<Stolpec | undefined>(undefined);
   const [meteoritNaDan, setMeteoritiNaDan] = useState(new Map<number, MeteoritJS[]>());
+  const [selectedDate, setSelectedDate] = useState<Dayjs | undefined>();
+
+  const update_meteorite_data = async (start_date: Dayjs, end_date: Dayjs) => {
+    const result = await get_meteorites({ start_date: start_date.toISOString(), end_date: end_date.toISOString() })
+    if (!result.data) return;
+    setMeteoriti(result.data)
+  }
 
   useEffect(() => {
     // A Map object iterates entries, keys, and values in the order of entry insertion. - Mozilla
@@ -55,12 +62,6 @@ export default function Podatki() {
 
     return array
   }, [meteoritNaDan]);
-
-  const update_meteorite_data = async (start_date: Dayjs, end_date: Dayjs) => {
-    const result = await get_meteorites({ start_date: start_date.toISOString(), end_date: end_date.toISOString() })
-    if (!result.data) return;
-    setMeteoriti(result.data)
-  }
 
   useEffect(() => {
     void update_meteorite_data(datePickerEna, datePickerDva)
@@ -102,6 +103,9 @@ export default function Podatki() {
               setDatepickerDva(newValue)
             }}
           />
+          {selectedDate && selectedGraph == "graf_dva" ? <>
+            <span>{selectedDate.date()}. {selectedDate.month()}</span>
+          </> : null}
           <Button
             variant="contained"
             color='primary'
@@ -124,6 +128,7 @@ export default function Podatki() {
                 const stolpec = meteoriti_array[index]
                 if (typeof stolpec === 'undefined') return;
 
+                setSelectedDate(dayjs(stolpec.date))
                 setSelectedMeteoriti(stolpec);
                 setSelectedGraph("graf_dva");
               }}

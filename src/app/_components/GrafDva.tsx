@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
   Title,
   Tooltip,
   Legend,
+  BarElement,
+  ChartData,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { type Stolpec } from './Data';
+import { type MeteoritJS } from '../actions';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -30,35 +30,56 @@ const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: 'Število meteoritov na dan',
     },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [65, 59, 80, 81, 56, 55, 40],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
 
 type GrafDvaType = {
   selectedMeteoriti?: Stolpec;
 }
 
+type ChartType = ChartData<"bar", number[], number>;
+
 const GrafDva = ({ selectedMeteoriti }: GrafDvaType) => {
+  // const chartRef = useRef<ChartType>();
+  const data = useMemo(() => {
+    if (!selectedMeteoriti) return;
+    const groups: number[] = Array.from({ length: 24 }, () => 0);
+
+    for (const meteorit of selectedMeteoriti?.meteoriti) {
+      const hour = meteorit.cas.getHours();
+      const arr_per_hour = groups[hour];
+
+      if (typeof arr_per_hour === 'undefined') throw new Error("arr_per_hour is undefined");
+      groups[hour]++;
+    }
+
+    return {
+      labels: Array.from({ length: 24 }, (_, i) => i),
+      datasets: [
+        {
+          label: 'meteoriti',
+          data: groups,
+          backgroundColor: 'green',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+
+        },
+      ],
+    }
+  }, [selectedMeteoriti]);
+
   useEffect(() => {
     console.log("to so izbrani meteoriti", { selectedMeteoriti })
   }, [selectedMeteoriti])
 
-  return (<Line options={options} data={data} />);
+  return <Bar
+    options={options}
+    data={data!}
+  // ref={chartRef}
+  />;
 }
 
 export default GrafDva;
